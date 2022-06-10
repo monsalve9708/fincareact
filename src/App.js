@@ -1,11 +1,9 @@
 import './App.css';
-import Router from "./router/Router";
-import Sidebar from "./components/sidebar/sidebar";
+import Router from "./router/router";
 
 function App() {
   return (
       <>
-          <Sidebar/>
           <Router/>
       </>
   );

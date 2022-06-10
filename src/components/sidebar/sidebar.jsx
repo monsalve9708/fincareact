@@ -14,10 +14,10 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItemText from '@mui/material/ListItemText';
 import EventIcon from '@mui/icons-material/Event';
 import CheckIcon from '@mui/icons-material/Check';
-import { Outlet } from 'react-router-dom';
 import {Button} from "@mui/material";
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import LogoutIcon from '@mui/icons-material/Logout';
+import {useState} from "react";
 
 const drawerWidth = 240;
 
@@ -89,7 +89,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
  const Sidebar= () => {
     const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
     const role = "admin";
 
     const handleDrawerOpen = () => {
@@ -130,18 +130,18 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
                 </DrawerHeader>
                 <Divider />
 
-                <Button href="/reserva">
+                <Button href="/reserva" value="Reserva">
                    <EventIcon/>
-                    <ListItemText primary="Reserva" sx={{ opacity: open ? 1 : 0}} />
+                    <ListItemText primary="Reserva"  sx={{ opacity: open ? 1 : 0}} />
                 </Button>
-                <Button href="/checkin">
+                <Button href="/checkin" value="Check in">
                     <CheckIcon/>
                     <ListItemText primary="Check in" sx={{ opacity: open ? 1 : 0 }} />
                 </Button>
                 {role === 'admin' ?
-                    <Button href="/comparar">
+                    <Button href="/comparar" value="Comparar reservas">
                     <CompareArrowsIcon/>
-                    <ListItemText primary="Comparar reservas" sx={{ opacity: open ? 1 : 0 }} />
+                    <ListItemText primary="Comparar reservas"  sx={{ opacity: open ? 1 : 0 }} />
                 </Button> : null}
                 <Divider />
                 <Button href="/">
@@ -150,7 +150,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
                 </Button>
             </Drawer>
         </Box>
-        <Outlet/>
         </>
     );
 }
