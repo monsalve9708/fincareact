@@ -18,6 +18,7 @@ import {Button} from "@mui/material";
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import LogoutIcon from '@mui/icons-material/Logout';
 import {useState} from "react";
+import jwt_decode from "jwt-decode";
 
 const drawerWidth = 240;
 
@@ -91,6 +92,9 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     const theme = useTheme();
     const [open, setOpen] = useState(false);
     const role = "admin";
+     const token = sessionStorage.getItem("token") ?
+         sessionStorage.getItem("token") : null;
+     const user =token ? jwt_decode(token) : null;
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -99,6 +103,10 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     const handleDrawerClose = () => {
         setOpen(false);
     };
+    const logout = () => {
+        sessionStorage.clear();
+        window.location.href = '/?logout=true';
+    }
     return (
         <>
         <Box sx={{ display: 'flex' }}>
@@ -138,13 +146,13 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
                     <CheckIcon/>
                     <ListItemText primary="Check in" sx={{ opacity: open ? 1 : 0 }} />
                 </Button>
-                {role === 'admin' ?
+                {role === user?.type_user ?
                     <Button href="/comparar" value="Comparar reservas">
                     <CompareArrowsIcon/>
                     <ListItemText primary="Comparar reservas"  sx={{ opacity: open ? 1 : 0 }} />
                 </Button> : null}
                 <Divider />
-                <Button href="/">
+                <Button onClick={logout}>
                     <LogoutIcon/>
                     <ListItemText primary="Cerrar sesion" sx={{ opacity: open ? 1 : 0 }} />
                 </Button>
